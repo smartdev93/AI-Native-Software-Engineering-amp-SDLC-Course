@@ -153,6 +153,17 @@ The system MUST expire sessions after 15 minutes of inactivity.
 !!! tip "No-cost path"
     Spec Kit supports Gemini CLI as an integration (`--integration gemini`), so the whole lab runs on Gemini CLI's free tier. Claude Code users pass `--integration claude`.
 
+### Warm-up: EARS rewrite (course-authored)
+
+Do this before Part A; it needs no agent.
+
+1. Your instructor hands out a short, vague product brief (for example: "Users should be able to reset their password easily and securely").
+2. Rewrite it as at least six EARS requirements. Use at least one of each: event-driven (When), state-driven (While), and unwanted behaviour (If/Then).
+3. For each requirement, write one acceptance criterion that a test could check.
+4. Swap with a classmate. Mark every word that still leaves the implementer guessing ("easily," "securely," "quickly") and every missing error case. Revise.
+
+Keep the result; it becomes the input to Part A if your instructor uses your own feature instead of Taskify.
+
 ### Part A: Spec Kit (greenfield)
 
 1. Install the pinned Spec Kit CLI and confirm the version ([Installation guide](https://github.github.io/spec-kit/installation.html)):

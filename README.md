@@ -1,5 +1,7 @@
 # AI-Native Software Engineering & Specification-Driven Development
 
+*Created by Tuan Luong, AI Engineer*
+
 Course materials for a four-module university course on building software with AI coding agents: how agents work, how to direct them with specifications, how to verify their output automatically, and how to keep human understanding and accountability. For students and instructors.
 
 **Site:** <https://smartdev93.github.io/AI-Native-Software-Engineering-amp-SDLC-Course/>
