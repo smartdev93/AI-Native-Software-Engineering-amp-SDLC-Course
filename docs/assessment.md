@@ -22,7 +22,7 @@ Proctored assessment appeared in only 3 of the 14 courses (median 20%). The pape
 
 | Component | Weight | What is assessed | Benchmark |
 | --- | --- | --- | --- |
-| Module labs (Modules 1–3) | 25% | Lab deliverables, graded mainly on artifacts: context files, specs, convergence logs, tests, eval suites | Coding assignments median 20% |
+| Module labs (Modules 1–3) | 25% | Lab deliverables, graded with the [lab rubric](#lab-rubric): context files, specs, convergence logs, tests, eval suites | Coding assignments median 20% |
 | Capstone project (team) | 40% | Graded with the [capstone rubric](modules/module-4.md#rubric-course-authored) | Project/capstone median 50%, range 30–85% |
 | Individual oral defense | 20% | Individual understanding of the capstone (format below) | CMU 15-113 gives oral evaluations + quizzes 20%; Geng proctored median 20% |
 | Reflections and AI-use logs | 10% | Per-lab reflections, capstone reflection, completeness and honesty of AI-use logs | Review/reflection median 19% |
@@ -30,6 +30,22 @@ Proctored assessment appeared in only 3 of the 14 courses (median 20%). The pape
 | **Total** | **100%** | | |
 
 Why the capstone is below the 50% median: 20% is moved into an individually verified oral defense, so a strong team grade cannot hide a student who does not understand the system. Together the oral defense and reflections make 30% of the grade individual.
+
+## Lab rubric
+
+!!! note "Course-authored"
+    This rubric is the course's own design. It grades the artifacts each lab produces, not how much code the agent wrote.
+
+Each Module 1–3 lab is scored out of 100 on four dimensions of 25 points each. Not every dimension applies to every lab; where one does not, score the others and rescale to 100.
+
+| Dimension | Points | Full marks | Little or no credit | Applies to |
+| --- | --- | --- | --- | --- |
+| Specification quality | 25 | Requirements are in correct EARS form, testable, and cover unwanted behavior (error states, boundaries); acceptance criteria match what was built | Vague requirements the agent has to guess at; spec abandoned after the first implement pass | Module 2, Module 3 |
+| Context and boundaries | 25 | `AGENTS.md` is short and specific; rules that must hold are enforced by permissions, hooks, or gates, not only by instructions; MCP servers are scoped to what the task needs | Missing or bloated context file; the agent breaks project conventions or adds unapproved dependencies | All modules |
+| Verification | 25 | Each acceptance criterion maps to a passing automated test; static and secret-scanning gates run; the student shows a gate catching a real break | Tests do not trace to the spec; gates missing, always bypassed, or never shown to fail | Module 3 (Module 2 where tests exist) |
+| Process evidence | 25 | Git history shows spec-driven work (spec edits followed by implement/converge commits); the AI-use log and reflection are complete and specific | Large unexplained agent commits; no AI-use log; reflection is generic | All modules |
+
+There is no coverage percentage or "zero findings" threshold. A target such as "85% coverage" rewards tests that execute code without checking the spec. Grade whether the tests trace to acceptance criteria and whether the gates catch real defects.
 
 ## Oral defense
 

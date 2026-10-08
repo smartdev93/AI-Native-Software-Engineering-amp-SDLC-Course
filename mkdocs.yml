@@ -1,6 +1,8 @@
 site_name: AI-Native Software Engineering & SDD
 site_url: https://smartdev93.github.io/AI-Native-Software-Engineering-amp-SDLC-Course/
 site_description: Course on AI-native software engineering and specification-driven development across the SDLC.
+site_author: Tuan Luong
+copyright: Course created by Tuan Luong, AI Engineer
 repo_url: https://github.com/smartdev93/AI-Native-Software-Engineering-amp-SDLC-Course
 repo_name: smartdev93/AI-Native-Software-Engineering-amp-SDLC-Course
 edit_uri: edit/main/docs/

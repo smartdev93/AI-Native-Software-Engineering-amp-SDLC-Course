@@ -1,5 +1,7 @@
 # AI-Native Software Engineering & Specification-Driven Development
 
+*Created by Tuan Luong, AI Engineer*
+
 A four-module university course on building software with AI coding agents: how the agents work, how to direct them with specifications, how to verify what they produce, and how to keep human understanding and accountability.
 
 ## Course goals
