@@ -1,7 +1,8 @@
 site_name: AI-Native Software Engineering & SDD
+site_url: https://smartdev93.github.io/AI-Native-Software-Engineering-amp-SDLC-Course/
 site_description: Course on AI-native software engineering and specification-driven development across the SDLC.
 repo_url: https://github.com/smartdev93/AI-Native-Software-Engineering-amp-SDLC-Course
-repo_name: smartdev93/AI-Native-SDLC-Course
+repo_name: smartdev93/AI-Native-Software-Engineering-amp-SDLC-Course
 edit_uri: edit/main/docs/
 
 theme:
@@ -46,13 +47,19 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
+# slides.md is an earlier draft outline with unsourced claims; kept in the repo but not published.
+exclude_docs: |
+  slides.md
+
 nav:
   - Home: index.md
   - Modules:
       - modules/index.md
-      - "1. Foundations & agent architecture": modules/module-1.md
+      - "1. Foundations and agent architecture": modules/module-1.md
       - "2. Specification-driven development": modules/module-2.md
-      - "3. Multi-agent orchestration & verification": modules/module-3.md
-      - "4. Cognitive debt, review & governance": modules/module-4.md
+      - "3. Multi-agent orchestration and verification": modules/module-3.md
+      - "4. Cognitive debt, review and governance": modules/module-4.md
   - Assessment: assessment.md
+  - Resources:
+      - Real courses: resources/real-courses.md
   - Sources: sources.md
