@@ -1,8 +1,22 @@
 name: Deploy docs
 
+# Builds the MkDocs site on every push and pull request that touches it,
+# and deploys to GitHub Pages on pushes to main (or a manual run).
 on:
   push:
     branches: [main]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+      - ".github/workflows/docs.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+      - ".github/workflows/docs.yml"
   workflow_dispatch:
 
 permissions:
@@ -11,24 +25,41 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+          cache: pip
+
       - run: pip install -r requirements.txt
+
       - run: mkdocs build --strict
-      - uses: actions/upload-pages-artifact@v5
+
+      # Enables Pages (source: GitHub Actions) on the first run if the
+      # PAGES_ENABLE_TOKEN secret is set. GITHUB_TOKEN cannot enable Pages.
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v6
+        with:
+          token: ${{ secrets.PAGES_ENABLE_TOKEN || github.token }}
+          enablement: ${{ secrets.PAGES_ENABLE_TOKEN != '' }}
+
+      - name: Upload site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
