@@ -31,6 +31,12 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.pages.outputs.deploy }}
+    env:
+      # Optional PAT (Pages + Administration write) that lets the workflow
+      # enable Pages itself. GITHUB_TOKEN cannot enable Pages.
+      HAS_ENABLE_TOKEN: ${{ secrets.PAGES_ENABLE_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v7
 
@@ -43,23 +49,39 @@ jobs:
 
       - run: mkdocs build --strict
 
-      # Enables Pages (source: GitHub Actions) on the first run if the
-      # PAGES_ENABLE_TOKEN secret is set. GITHUB_TOKEN cannot enable Pages.
+      # Decide whether to deploy: never on PRs; otherwise only if Pages is
+      # already enabled or we have a token to enable it.
+      - name: Check Pages status
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+          elif gh api "repos/${GITHUB_REPOSITORY}/pages" --silent 2>/dev/null; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          elif [ "$HAS_ENABLE_TOKEN" = "true" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=GitHub Pages is not enabled::Site built but not deployed. Enable it at https://github.com/${GITHUB_REPOSITORY}/settings/pages (Source: GitHub Actions), then re-run this workflow. Or add a PAGES_ENABLE_TOKEN secret so the workflow can enable it."
+          fi
+
       - name: Configure Pages
-        if: github.event_name != 'pull_request'
+        if: steps.pages.outputs.deploy == 'true'
         uses: actions/configure-pages@v6
         with:
           token: ${{ secrets.PAGES_ENABLE_TOKEN || github.token }}
-          enablement: ${{ secrets.PAGES_ENABLE_TOKEN != '' }}
+          enablement: ${{ env.HAS_ENABLE_TOKEN }}
 
       - name: Upload site
-        if: github.event_name != 'pull_request'
+        if: steps.pages.outputs.deploy == 'true'
         uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
   deploy:
-    if: github.event_name != 'pull_request'
+    if: needs.build.outputs.deploy == 'true'
     needs: build
     runs-on: ubuntu-latest
     environment:
