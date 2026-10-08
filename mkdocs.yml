@@ -1,0 +1,58 @@
+site_name: AI-Native Software Engineering & SDD
+site_description: Course on AI-native software engineering and specification-driven development across the SDLC.
+repo_url: https://github.com/smartdev93/AI-Native-Software-Engineering-amp-SDLC-Course
+repo_name: smartdev93/AI-Native-SDLC-Course
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Modules:
+      - modules/index.md
+      - "1. Foundations & agent architecture": modules/module-1.md
+      - "2. Specification-driven development": modules/module-2.md
+      - "3. Multi-agent orchestration & verification": modules/module-3.md
+      - "4. Cognitive debt, review & governance": modules/module-4.md
+  - Assessment: assessment.md
+  - Sources: sources.md
